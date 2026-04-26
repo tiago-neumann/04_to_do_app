@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>To-Do App</title>
+  </head>
+  <body>
+    <header>
+      <!-- A navbar irá exibir o nome do projeto, um button de mudar a cor do site e um button focado na aba de perfil -->
+      <nav class="navbar_pai">
+        <nav class="navbar_filho">
+          <h1>To-Do App</h1>
+          <div>
+            <button id="mudarCor"><i class="fa-solid fa-sun"></i></button>
+            <button id="perfil">
+              <i class="fa-solid fa-user"></i> Fazer Login
+            </button>
+          </div>
+        </nav>
+      </nav>
+    </header>
+    <main>
+      <!-- Onde serão criadas as tarefas -->
+      <div class="conteiner">
+        <h1>Criar Tarefas</h1>
+        <div class="bloco criar_tarefa">
+          <div>
+            <label for="nomeTarefa">Nome da tarefa</label>
+            <input
+              type="text"
+              name="nomeTarefa"
+              id="nomeTarefa"
+              maxlength="20"
+              placeholder="máx. 20 letras"
+            />
+          </div>
+          <div>
+            <label for="descricaoTarefa">Descrição</label>
+            <input
+              type="text"
+              name="descricaoTarefa"
+              id="descricaoTarefa"
+              maxlength="100"
+              placeholder="máx. 100 letras"
+            />
+          </div>
+          <p id="errosDeCriacao" style="grid-row: 3/3; grid-column: 1/3; color: rgb(201, 0, 0);"></p>
+          <button id="criarTarefa"><i class="fa-solid fa-plus"></i></button>
+        </div>
+      </div>
+
+      <!-- Onde será possível procurar as tarefas -->
+      <div class="conteiner">
+        <h1>Minhas Tarefas</h1>
+        <div class="bloco pesquisa">
+          <div class="search">
+            <label for="pesquisa"
+              ><i class="fa-solid fa-magnifying-glass"></i
+            ></label>
+            <input
+              type="search"
+              name="pesquisa"
+              id="pesquisa"
+              placeholder="Pesquisar"
+            />
+          </div>
+          <div class="tags">
+            <label class="radio_box">
+              <input
+                type="radio"
+                id="todasTarefas"
+                name="tarefas"
+                value="todas"
+              />
+              <span>Todas</span>
+            </label>
+
+            <label class="radio_box">
+              <input
+                type="radio"
+                id="tarefasConcluidas"
+                name="tarefas"
+                value="concluidas"
+              />
+              <span>Concluídas</span>
+            </label>
+
+            <label class="radio_box">
+              <input
+                type="radio"
+                id="tarefasPendentes"
+                name="tarefas"
+                value="pendentes"
+              />
+              <span>Pendentes</span>
+            </label>
+          </div>
+        </div>
+        <div class="bloco minhas_tarefas">
+            <p id="avisoDeTarefas">Ainda não há nenhuma tarefa...</p>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>

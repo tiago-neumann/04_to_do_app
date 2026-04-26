@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+:root{
+    --background: #131316;
+    --conteiner: #58565A;
+    --bloco: #7c787e;
+    --card: #CECDCF;
+    --variant-card: #575A5E;
+    --card-border: #A6A9AA;
+    --titulo: #F4F7F5;
+    --texto: #E2E2E2;
+    --variant-texto: #292929;
+    --esmaecido: #575A5E; 
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: var(--background);
+    font-family: 'Roboto Mono', sans-serif;
+    color: var(--texto);
+    margin-top: 60px;
+    padding: 30px;
+}
+
+input{
+    outline: none;
+}
+
+.navbar_pai{
+    position: fixed;
+    color: var(--titulo);
+    font-family: 'Montserrat', monospace;
+    background: var(--conteiner);
+    border-bottom: 5px solid var(--card-border);
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.navbar_filho{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar_filho button{
+    background: var(--card);
+    border: 2px solid var(--card-border);
+    border-radius: 20px;
+    padding: 8px;
+}
+
+.conteiner{
+    background: var(--conteiner);
+    border-radius: 16px;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+.conteiner h1{
+    padding: 10px;
+    font-family: 'Montserrat', monospace;
+}
+
+.bloco{
+    background: var(--bloco);
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.criar_tarefa{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    place-content: center;
+    gap: 10px;
+}
+
+.criar_tarefa div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.criar_tarefa label{
+    font-size: 13px;
+    text-align: start;
+    margin-left: 10px;
+}
+
+.criar_tarefa input{
+    background: var(--card);
+    color: var(--variant-texto);
+    border: 2px solid var(--card-border);
+    border-radius: 16px;
+    padding: 10px;
+    width: 100%;
+}
+
+.criar_tarefa button{
+    grid-column: 1/3;
+    color: var(--esmaecido);
+    background: var(--card);
+    border: 2px solid var(--card-border);
+    border-radius: 16px;
+    transition: all 0.2s ease;
+}
+
+.criar_tarefa button:hover{
+    background: rgba(255, 255, 255, 0.5);   
+}
+
+.criar_tarefa button:active{
+    background: rgba(218, 218, 218, 0.5);
+}
+
+.pesquisa{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px){
+    .pesquisa{
+        flex-direction: column;
+    }
+}
+
+.search{
+    display: inline-flex;
+    align-items: center;
+    background: var(--card);
+    border: 2px solid var(--card-border);
+    border-radius: 20px;
+    gap: 12px;
+    padding: 5px 8px;
+    width: 100%;
+}
+
+
+
+@media (max-width: 768px){
+    .search{
+        margin-bottom: 5px;
+    }
+}
+
+.search label{
+    color: var(--esmaecido);
+    font-size: 20px;
+}
+
+.search input{
+    color: var(--variant-texto);
+    border: none;
+    border-radius: 16px;
+    padding: 10px;
+    width: 100%;
+}
+
+.tags{
+    display: inline-flex;
+    justify-content: end;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+
+@media (max-width: 500px){
+    .tags{
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 768px){
+    .tags{
+        margin-bottom: 10px;
+    }
+}
+
+.radio_box input {
+    display: none;
+}
+
+.radio_box span {
+    padding: 8px 16px;
+    color: var(--esmaecido);
+    background: var(--card);
+    border: 2px solid var(--card-border);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+@media (max-width: 500px){
+    .radio_box span{
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+.radio_box input:checked + span {
+    color: var(--titulo);
+    background: rgba(128, 128, 128, 0.5);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.minhas_tarefas{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+    min-height: 200px;
+    gap: 5px;
+}
+
+@media (max-width: 1024px){
+    .minhas_tarefas{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px){
+    .minhas_tarefas{
+        grid-template-columns: auto;
+    }
+}
+
+.tarefas{
+    display: flex;
+    flex-direction: column;
+    background: #131316;
+    color: white;
+    border-radius: 16px;
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
+
+.tarefas h1{
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.tarefas p{
+    text-align: justify;
+    margin: 0;
+    font-size: 14px;
+    flex-grow: 1;
+}
+
+.tarefas input[type="checkbox"]{
+    align-self: flex-start;
+}
