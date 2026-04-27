@@ -11,51 +11,78 @@ const tarefas = [];
 let contadorId = 0;
 
 class Tarefa{
-    constructor(nomeTarefa, descricaoTarefa){
+    constructor(nome, descricao){
         this.id = contadorId++;
-        this.nomeTarefa = nomeTarefa;
-        this.descricaoTarefa = descricaoTarefa;
+        this.nome = nome;
+        this.descricao = descricao;
         this.concluida = false;
+    }
+
+    concluir() {
+        this.concluida = true;
+    }
+
+    desmarcar(){
+        this.concluida = false;
+    }
+
+    editar(novoNome, novaDescricao){
+        if (novoNome) {this.name = novoNome;}
+        if (novaDescricao) {this.descricao = novaDescricao;}
     }
 }
 
-let existeErro;
-
 function verificadorDeErros(){
-    existeErro = false;
-
     if(inputNome.value === ""){
-        existeErro = true;
         displayErros.textContent = "A tarefa precisa de um nome para ser criada!"
-    } else if(inputDescricao.value === ""){
-        existeErro = true;
-        displayErros.textContent = "A tarefa precisa de uma descrição para ser criada!"
-    } else {
-        existeErro = false;
-        displayErros.textContent = "";
+        return false;
     }
+    
+    if(inputDescricao.value === ""){
+        displayErros.textContent = "A tarefa precisa de uma descrição para ser criada!"
+        return false;
+    }
+
+    const nomeExistente = tarefas.some(tarefaAtual => tarefaAtual.nome.toLowerCase() === inputNome.value.trim().toLowerCase());
+    
+    if(nomeExistente){
+        displayErros.textContent = "A tarefa utiliza de um nome já existente!"
+        return false;
+    }
+
+    displayErros.textContent = "";
+    return true;
 }
 
 function criarElementosHTML(tarefa){
-    const div = document.createElement("div");
-    const h3 = document.createElement("h3");
-    const p = document.createElement("p");
-    const checkbox = document.createElement("input")
+    const container = document.createElement("div");
+    container.classList.add('tarefas');
 
+    const blocoDeMudancas = document.createElement("div");
+    const titulo = document.createElement("h3");
+    const descricao = document.createElement("p");
+    
+    const checkbox = document.createElement("input");
     checkbox.type = 'checkbox';
+    checkbox.checked = tarefa.concluida
 
-    h3.textContent = `${tarefa.nomeTarefa}`
-    p.textContent = `${tarefa.descricaoTarefa}`;
+    const button = document.createElement("button");
 
-    div.appendChild(h3);
-    div.appendChild(p);
-    div.appendChild(checkbox);
-    div.classList.add('tarefas')
-    minhasTarefas.appendChild(div);
+    
+
+    titulo.textContent = `${tarefa.nome}`
+    descricao.textContent = `${tarefa.descricao}`;
+
+    minhasTarefas.appendChild(container);
+    container.appendChild(titulo);
+    container.appendChild(descricao);
+    container.appendChild(blocoDeMudancas);
+    blocoDeMudancas.appendChild()
+    blocoDeMudancas.appendChild(checkbox);
 }
 
-function criarTarefa(nomeTarefa, descricaoTarefa){
-    const novaTarefa = new Tarefa(nomeTarefa, descricaoTarefa);
+function criarTarefa(nome, descricao){
+    const novaTarefa = new Tarefa(nome, descricao);
     tarefas.push(novaTarefa);
 
     criarElementosHTML(novaTarefa);
@@ -67,7 +94,15 @@ function concluirTarefa(id){
     const tarefa = tarefas.find(tarefaAtual => tarefaAtual.id === id);
 
     if (tarefa) {
-        tarefa.concluida = true;
+        tarefa.concluir();
+    }
+}
+
+function desmarcarTarefa(){
+    const tarefa = tarefas.find(tarefaAtual => tarefaAtual.id === id);
+
+    if (tarefa) {
+        tarefa.desmarcar();
     }
 }
 
@@ -75,16 +110,14 @@ const btn_criarTarefa = document.getElementById('criarTarefa')
 
 btn_criarTarefa.addEventListener('click', () => {
 
-    verificadorDeErros();
-
-    if(existeErro === false){
+    if(verificadorDeErros()){
         const nomeTarefa = inputNome.value;
         const descricaoTarefa = inputDescricao.value;
 
         criarTarefa(nomeTarefa, descricaoTarefa);
 
         displayAvisoDeTarefas.style.display = "none";
-        //inputNome.value = "";
-        //inputDescricao.value = "";
+        inputNome.value = "";
+        inputDescricao.value = "";
     }
 });
