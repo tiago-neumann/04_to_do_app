@@ -239,11 +239,11 @@ input{
     flex-direction: column;
     background: #131316;
     color: white;
+    border: 2px solid var(--card-border);
     border-radius: 16px;
     width: 100%;
     min-height: 150px;
-    padding: 10px;
-    cursor: pointer;
+    padding: 12px;
 
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -264,4 +264,77 @@ input{
 
 .tarefas input[type="checkbox"]{
     align-self: flex-start;
+}
+
+.alteracoes_tarefas{
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    width: 100%;
+}
+
+.checkbox{
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox input{
+    display: none;
+}
+
+.checkbox::before{
+    content: "";
+    position: absolute;
+    background-color: #A6A9AA;
+    border: 2px solid gray;
+    border-radius: 16px;
+    width: 45px;
+    height: 25px;
+    transition: all 0.3s ease;
+}
+
+.checkbox::after{
+    content: "";
+    position: absolute;
+    background-color: gray;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    transform: translateX(3px);
+    transition: all 0.3s ease;
+}
+
+.checkbox:has(input:checked)::before{
+    background-color: rgb(120, 255, 120);
+    border: 2px solid rgb(47, 167, 47);
+}
+
+.checkbox:has(input:checked)::after{
+    transform: translateX(23px);
+    background-color: rgb(47, 167, 47);
+} 
+
+.btn_excluir{
+    background-color: rgb(255, 39, 39);
+    border: 2px solid #a11515;
+    font-weight: bold;
+    color: white;
+    border-radius: 10px;
+    padding: 4px 10px;
+    transition: all 0.2s ease;
+}
+
+.btn_excluir:hover{
+    background-color: rgb(211, 32, 32);
+    border: 2px solid #7a1010;
+    transform: scale(1.1);
+}
+
+.btn_excluir:active{
+    background-color: rgb(179, 26, 26);
+    border: 2px solid #580c0c;
+    transform: scale(1);
 }

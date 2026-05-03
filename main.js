@@ -27,8 +27,16 @@ class Tarefa{
     }
 
     editar(novoNome, novaDescricao){
-        if (novoNome) {this.name = novoNome;}
-        if (novaDescricao) {this.descricao = novaDescricao;}
+        if (novoNome) this.nome = novoNome;
+        if (novaDescricao) this.descricao = novaDescricao;
+    }
+
+    remover(){
+        const index = tarefas.indexOf(this);
+
+        if (index !== -1) {
+            tarefas.splice(index, 1);
+        }
     }
 }
 
@@ -55,20 +63,44 @@ function verificadorDeErros(){
 }
 
 function criarElementosHTML(tarefa){
+
+    //Relacionado ao container principal de cada tarefa
     const container = document.createElement("div");
     container.classList.add('tarefas');
+    container.dataset.id = tarefa.id;
 
     const blocoDeMudancas = document.createElement("div");
+    blocoDeMudancas.classList.add('alteracoes_tarefas')
+
     const titulo = document.createElement("h3");
     const descricao = document.createElement("p");
+
+    //Relacionado ao label que contem o checkbox
+    const label_checkbox = document.createElement("label");
+    label_checkbox.classList.add('checkbox');
     
+    //Relacionado ao checkbox de cada tarefa
     const checkbox = document.createElement("input");
     checkbox.type = 'checkbox';
     checkbox.checked = tarefa.concluida
 
-    const button = document.createElement("button");
-
+    checkbox.addEventListener('change', () => {
+        if(checkbox.checked){
+            tarefa.concluir();
+        } else {
+            tarefa.desmarcar();
+        }
+    })
     
+    //Relacionado ao botão de exclusação da tarefa
+    const btn_excluir = document.createElement("button");
+    btn_excluir.classList.add('btn_excluir');
+    btn_excluir.textContent = "Excluir"
+
+    btn_excluir.addEventListener("click", () => {
+        container.remove();
+        tarefa.remover();
+    })
 
     titulo.textContent = `${tarefa.nome}`
     descricao.textContent = `${tarefa.descricao}`;
@@ -77,8 +109,11 @@ function criarElementosHTML(tarefa){
     container.appendChild(titulo);
     container.appendChild(descricao);
     container.appendChild(blocoDeMudancas);
-    blocoDeMudancas.appendChild()
-    blocoDeMudancas.appendChild(checkbox);
+    label_checkbox.appendChild(checkbox);
+    blocoDeMudancas.appendChild(label_checkbox);
+    blocoDeMudancas.appendChild(btn_excluir);
+
+    return container;
 }
 
 function criarTarefa(nome, descricao){
@@ -98,7 +133,7 @@ function concluirTarefa(id){
     }
 }
 
-function desmarcarTarefa(){
+function desmarcarTarefa(id){
     const tarefa = tarefas.find(tarefaAtual => tarefaAtual.id === id);
 
     if (tarefa) {
@@ -116,7 +151,8 @@ btn_criarTarefa.addEventListener('click', () => {
 
         criarTarefa(nomeTarefa, descricaoTarefa);
 
-        displayAvisoDeTarefas.style.display = "none";
+        displayAvisoDeTarefas.style.display = 'none';
+
         inputNome.value = "";
         inputDescricao.value = "";
     }
