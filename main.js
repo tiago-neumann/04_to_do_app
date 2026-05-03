@@ -51,7 +51,7 @@ function verificadorDeErros(){
         return false;
     }
 
-    const nomeExistente = tarefas.some(tarefaAtual => tarefaAtual.nome.toLowerCase() === inputNome.value.trim().toLowerCase());
+    const nomeExistente = tarefas.some(t => t.nome.toLowerCase() === inputNome.value.trim().toLowerCase());
     
     if(nomeExistente){
         displayErros.textContent = "A tarefa utiliza de um nome já existente!"
@@ -84,7 +84,7 @@ function criarElementosHTML(tarefa){
     checkbox.type = 'checkbox';
     checkbox.checked = tarefa.concluida
 
-    checkbox.addEventListener('change', () => {
+    checkbox.addEventListener ('change', () => {
         if(checkbox.checked){
             tarefa.concluir();
         } else {
@@ -126,7 +126,7 @@ function criarTarefa(nome, descricao){
 }
 
 function concluirTarefa(id){
-    const tarefa = tarefas.find(tarefaAtual => tarefaAtual.id === id);
+    const tarefa = tarefas.find(t => t.id === id);
 
     if (tarefa) {
         tarefa.concluir();
@@ -134,11 +134,62 @@ function concluirTarefa(id){
 }
 
 function desmarcarTarefa(id){
-    const tarefa = tarefas.find(tarefaAtual => tarefaAtual.id === id);
+    const tarefa = tarefas.find(t => t.id === id);
 
     if (tarefa) {
         tarefa.desmarcar();
     }
+}
+
+function filtrarTarefas(){
+    const filtroSelecionado = document.querySelector('input[name="tarefas"]:checked');
+
+    const containers = document.querySelectorAll('.tarefas');
+
+    containers.forEach(container => {
+        const id = container.dataset.id;
+
+        const tarefa = tarefas.find(t => t.id == id);
+    
+
+    if(filtroSelecionado.value === "concluidas"){
+        container.style.display = tarefa.concluida ? "flex" : "none";
+    }
+
+    if(filtroSelecionado.value === "pendentes"){
+        container.style.display = !tarefa.concluida ? "flex" : "none";
+    }
+
+    if(filtroSelecionado.value === "todas"){
+        container.style.display = "flex";
+    }
+    })
+}
+
+const input_pesquisa = document.querySelector('input[name="pesquisa"]')
+
+input_pesquisa.addEventListener("input", pesquisa);
+
+function pesquisa(){
+    const termo = input_pesquisa.value.toLowerCase().trim();
+
+    const container = document.querySelectorAll('.tarefas');
+
+    container.forEach(container => {
+        const id = container.dataset.id;
+
+        const tarefa = tarefas.find(t => t.id == id);
+
+        if(!tarefa) return;
+
+        const nome = tarefa.nome.toLowerCase();
+
+        if(nome.includes(termo)){
+            container.style.display = "flex";
+        } else {
+            container.style.display = "none"
+        }
+    })
 }
 
 const btn_criarTarefa = document.getElementById('criarTarefa')
