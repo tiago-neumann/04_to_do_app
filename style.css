@@ -1,16 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 :root{
-    --background: #131316;
-    --conteiner: #58565A;
-    --bloco: #7c787e;
-    --card: #CECDCF;
-    --variant-card: #575A5E;
-    --card-border: #A6A9AA;
-    --titulo: #F4F7F5;
-    --texto: #E2E2E2;
-    --variant-texto: #292929;
-    --esmaecido: #575A5E; 
+    --background: #0f1115;
+    --conteiner: #1a1d24;
+    --bloco: #22262f;
+
+    --card: #2a2f3a;
+    --variant-card: #1e222b;
+    --card-border: #3a404c;
+
+    --titulo: #f5f7fa;
+    --texto: #d6d9df;
+    --variant-texto: #9aa3ad;
+
+    --esmaecido: #6b7280;
+}
+
+[data-tema="light"]{
+    --background: #f5f7fa;
+    --conteiner: #ffffff;
+    --bloco: #f0f2f5;
+
+    --card: #ffffff;
+    --variant-card: #f9fafb;
+    --card-border: #e5e7eb;
+
+    --titulo: #111827;
+    --texto: #374151;
+    --variant-texto: #6b7280;
+
+    --esmaecido: #9ca3af;
 }
 
 *{
@@ -42,6 +61,7 @@ input{
     right: 0;
     left: 0;
     padding: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .navbar_filho{
@@ -52,6 +72,7 @@ input{
 
 .navbar_filho button{
     background: var(--card);
+    color: var(--texto);
     border: 2px solid var(--card-border);
     border-radius: 20px;
     padding: 8px;
@@ -62,6 +83,7 @@ input{
     border-radius: 16px;
     padding: 8px;
     margin-bottom: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 .conteiner h1{
@@ -73,6 +95,7 @@ input{
     background: var(--bloco);
     border-radius: 12px;
     padding: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 .criar_tarefa{
@@ -160,9 +183,9 @@ input{
 }
 
 .search input{
+    background-color: var(--card);
     color: var(--variant-texto);
     border: none;
-    border-radius: 16px;
     padding: 10px;
     width: 100%;
 }
@@ -241,7 +264,7 @@ input{
     color: white;
     border: 2px solid var(--card-border);
     border-radius: 16px;
-    width: 100%;
+    width: 100%; 
     min-height: 150px;
     padding: 12px;
 

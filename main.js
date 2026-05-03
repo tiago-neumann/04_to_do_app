@@ -7,6 +7,22 @@ const displayAvisoDeTarefas = document.getElementById('avisoDeTarefas');
 
 const minhasTarefas = document.querySelector('.minhas_tarefas');
 
+const root = document.documentElement;
+const btn_mudarCor = document.querySelector('#mudarCor');
+const icon = btn_mudarCor.querySelector('i');
+
+function alterarCor(){
+    if(root.getAttribute('data-tema') === 'light'){
+        root.removeAttribute('data-tema');
+        icon.classList.remove('fa-sun')
+        icon.classList.add('fa-moon')
+    } else {
+        root.setAttribute('data-tema', 'light');
+        icon.classList.remove('fa-moon')
+        icon.classList.add('fa-sun')
+    }
+}
+
 const tarefas = [];
 let contadorId = 0;
 
@@ -131,7 +147,7 @@ function concluirTarefa(id){
     if (tarefa) {
         tarefa.concluir();
     }
-}
+} 
 
 function desmarcarTarefa(id){
     const tarefa = tarefas.find(t => t.id === id);
