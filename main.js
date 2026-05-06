@@ -3,7 +3,6 @@ const inputNome = document.getElementById('nomeTarefa');
 const inputDescricao = document.getElementById('descricaoTarefa');
 
 const displayErros = document.getElementById('errosDeCriacao');
-const displayAvisoDeTarefas = document.getElementById('avisoDeTarefas');
 
 const minhasTarefas = document.querySelector('.minhas_tarefas');
 
@@ -12,6 +11,8 @@ const btn_mudarCor = document.querySelector('#mudarCor');
 const icon = btn_mudarCor.querySelector('i');
 
 function alterarCor(){
+    document.documentElement.classList.add('sem-transicao');
+
     if(root.getAttribute('data-tema') === 'light'){
         root.removeAttribute('data-tema');
         icon.classList.remove('fa-sun')
@@ -21,6 +22,9 @@ function alterarCor(){
         icon.classList.remove('fa-moon')
         icon.classList.add('fa-sun')
     }
+
+    document.documentElement.offsetHeight;
+    document.documentElement.classList.remove('sem-transicao');
 }
 
 const tarefas = [];
@@ -55,6 +59,33 @@ class Tarefa{
         }
     }
 }
+
+function salvarTarefas() {
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+}
+
+function carregarTarefas() {
+    const dados = localStorage.getItem('tarefas');
+
+    if (dados) {
+        const tarefasSalvas = JSON.parse(dados);
+
+        tarefasSalvas.forEach(t => {
+            const tarefa = new Tarefa(t.nome, t.descricao);
+            tarefa.id = t.id;
+            tarefa.concluida = t.concluida;
+
+            tarefas.push(tarefa);
+            criarElementosHTML(tarefa);
+        });
+
+        // garante IDs únicos
+        contadorId = tarefas.length > 0
+            ? Math.max(...tarefas.map(t => t.id)) + 1
+            : 0;
+    }
+}
+
 
 function verificadorDeErros(){
     if(inputNome.value === ""){
@@ -106,6 +137,8 @@ function criarElementosHTML(tarefa){
         } else {
             tarefa.desmarcar();
         }
+
+        salvarTarefas();
     })
     
     //Relacionado ao botão de exclusação da tarefa
@@ -116,6 +149,8 @@ function criarElementosHTML(tarefa){
     btn_excluir.addEventListener("click", () => {
         container.remove();
         tarefa.remover();
+
+        salvarTarefas();
     })
 
     titulo.textContent = `${tarefa.nome}`
@@ -138,7 +173,7 @@ function criarTarefa(nome, descricao){
 
     criarElementosHTML(novaTarefa);
 
-    console.log(novaTarefa);
+    salvarTarefas();
 }
 
 function concluirTarefa(id){
@@ -224,3 +259,5 @@ btn_criarTarefa.addEventListener('click', () => {
         inputDescricao.value = "";
     }
 });
+
+carregarTarefas();
